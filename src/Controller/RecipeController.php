@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
+use App\Entity\User;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,7 +30,11 @@ final class RecipeController extends AbstractController
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->getUser()){
+                $recipe->setUser($this->getUser());
+            }
             $entityManager->persist($recipe);
             $entityManager->flush();
 
@@ -53,6 +58,11 @@ final class RecipeController extends AbstractController
     #[Route('recipe/{id}/edit', name: 'app_recipe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        if (!$user instanceof User || $recipe->getUser() !== $user) {
+            return $this->redirectToRoute('app_recipe_index'); }
+            
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 

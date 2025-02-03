@@ -4,10 +4,11 @@
 
 {% block body %}
 <article>
-    <h1>Create new Recipe</h1>
+    <h1>Fair nouvo ressette</h1>
 
     {{ include('recipe/_form.html.twig') }}
-
-    <a href="{{ path('app_recipe_index') }}">back to list</a>
+	<form action="{{ path('app_recipe_index') }}" method="get">
+    <button type="submit" class="btn">Retour a tou les ressettes</button>
+</form>
     </article>
 {% endblock %}
