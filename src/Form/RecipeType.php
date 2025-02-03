@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -51,12 +52,17 @@ class RecipeType extends AbstractType
                 ],
                 'label' => 'Category de la recette:'
             ])
+            ->add('ingredients', EntityType::class, [
+                'class' => Ingredient::class,
+                'multiple' => true,
+                'expanded' => true
+                // 'autocomplete' => true
+            ])
             ->add('imageFile', VichImageType::class, [
                 'required' => true,
                 'allow_delete' => true,
                 'download_uri' => true, 
             ])
-            ->add('createdAt', DateType::class)
             ->add('submit', SubmitType::class)
         ;
     }

@@ -3,26 +3,28 @@
 					'id' : 'recipeForm',
 					'class' : 'form'
 				}}) }}
-	<div class="flex">
-				{{ form_label(form.name)}}
-				{{ form_widget(form.name)}}
-				{# {{ form_error(recipeForm.name)}} #}
-			</div>
+<div class="flex">
+	{{ form_label(form.name)}}
+	{{ form_widget(form.name)}}
+	{{ form_errors(form.name)}}
+</div>
 
-			<div class="flex">
-				{{ form_label(form.slug)}}
-				{{ form_widget(form.slug)}}
-				{# {{ form_error(recipeForm.slug)}} #}
-			</div>
-			<div class="flex">
-				{{ form_label(form.description)}}
-				{{ form_widget(form.description)}}
-				{# {{ form_error(recipeForm.slug)}} #}
-			</div>
-			<div class="flex">
-				{{ form_label(form.createdAt)}}
-				{{ form_widget(form.createdAt)}}
-				{# {{ form_error(recipeForm.slug)}} #}
-			</div>
+<div class="flex">
+	{{ form_label(form.slug)}}
+	{{ form_widget(form.slug)}}
+	{{ form_errors(form.slug)}}
+</div>
+<div class="flex">
+	{{ form_label(form.description)}}
+	{{ form_widget(form.description)}}
+	{{ form_errors(form.slug)}}
+</div>
+
+<div class="flex">
+	{{ form_label(form.ingredients) }}
+	{{ form_widget(form.ingredients) }}
+	{{ form_errors(form.ingredients)}}
+	{# Champ ManyToMany #}
+</div>
 
 {{ form_end(form) }}

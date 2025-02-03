@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -37,7 +38,7 @@ class Recipe
 
     #[ORM\Column]
     #[Assert\NotBlank(message : "Il fo tou ramplir mek")]
-    private ?\DateTimeImmutable $CreatedAt = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $image = null;
@@ -54,6 +55,20 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    /**
+     * @var Collection<int, Ingredient>
+     */
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recipes')]
+    private Collection $ingredients;
+
+
+
+    public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable())
+    {
+        $this->ingredients = new ArrayCollection();
+        $this->createdAt = $createdAt;
+    }
 
     public function getId(): ?int
     {
@@ -98,12 +113,12 @@ class Recipe
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->CreatedAt;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $CreatedAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
-        $this->CreatedAt = $CreatedAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -152,6 +167,30 @@ class Recipe
         return $this;
     }
 
-  
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredient $ingredient): static
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): static
+    {
+        $this->ingredients->removeElement($ingredient);
+
+        return $this;
+    }
+
+   
  
 }
