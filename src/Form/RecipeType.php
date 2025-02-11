@@ -63,7 +63,11 @@ class RecipeType extends AbstractType
                 'allow_delete' => true,
                 'download_uri' => true, 
             ])
-            ->add('submit', SubmitType::class)
+            // ->add('submit', SubmitType::class, [
+            //     'attr' => [
+            //         'class' => 'submit'
+            //     ]
+            // ])
         ;
     }
 

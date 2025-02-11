@@ -6,7 +6,50 @@
 <article>
     <h1>Fair nouvo ressette</h1>
 
-    {{ include('recipe/_form.html.twig') }}
+{{ form_start(form, {
+				'attr' : {
+					'id' : 'recipeForm',
+					'class' : 'form'
+				}}) }}
+<div class="flex">
+	{{ form_label(form.name)}}
+	{{ form_widget(form.name)}}
+	{{ form_errors(form.name)}}
+</div>
+
+<div class="flex">
+	{{ form_label(form.slug)}}
+	{{ form_widget(form.slug)}}
+	{{ form_errors(form.slug)}}
+</div>
+<div class="flex">
+	{{ form_label(form.description)}}
+	{{ form_widget(form.description)}}
+	{{ form_errors(form.slug)}}
+</div>
+
+<div class="flex">
+	{{ form_label(form.ingredients) }}
+	{{ form_widget(form.ingredients) }}
+	{{ form_errors(form.ingredients)}}
+	{# Champ ManyToMany #}
+</div>
+<div class="flex">
+	{{ form_label(form.category) }}
+	{{ form_widget(form.category) }}
+	{{ form_errors(form.category)}}
+</div>
+<div class="flex">
+	{{ form_label(form.imageFile) }}
+	{{ form_widget(form.imageFile) }}
+	{{ form_errors(form.imageFile)}}
+</div>
+<div class="flex">
+<button type='submit' id='submit'>SUBMIT</button>
+</div>
+
+{{ form_end(form) }}
+
 	<form action="{{ path('app_recipe_index') }}" method="get">
     <button type="submit" class="btn">Retour a tou les ressettes</button>
 </form>
